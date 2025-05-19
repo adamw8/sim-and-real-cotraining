@@ -25,6 +25,17 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -66,7 +77,10 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
+          <!-- Title -->
           <h1 class="title is-1 publication-title">Empirical Analysis of Sim-and-Real Cotraining for Diffusion Policies</h1>
+
+          <!-- Authors -->
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://adamwei.com">Adam Wei</a><sup>1</sup>,</span>
@@ -86,11 +100,13 @@
             </span>
           </div>
 
+          <!-- Affiliations --> 
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>Massachusetts Institute of Technology,</span>
             <span class="author-block"><sup>2</sup>Toyota Research Institute</span>
           </div>
-
+          
+          <!-- Links -->
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- arXiv Link. -->
@@ -112,7 +128,7 @@
                       <i class="fab fa-github"></i>
                   </span>
                   <span>Simulation Code</span>
-                  </a>
+                </a>
               </span>
               <!-- Training Code Link. -->
               <!-- TODO: fix this URL -->
@@ -123,7 +139,7 @@
                       <i class="fab fa-github"></i>
                   </span>
                   <span>Training Code</span>
-                  </a>
+                </a>
               </span>
               <!-- Dataset Link. -->
               <!-- TODO: fix this URL -->
@@ -134,7 +150,7 @@
                     <i class="fas fa-database"></i>
                   </span>
                   <span>Data (coming soon)</span>
-                  </a>
+                </a>
             </div>
 
           </div>
@@ -144,24 +160,27 @@
   </div>
 </section>
 
+<!-- Anchor Figure -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
       <img src="./static/images/anchor.png" width="100%">
       <h2 class="subtitle has-text-centered">
-        <em>Sim-and-real cotraining</em> aims to train visuomotor
+        <strong>Sim-and-real cotraining</strong> aims to train visuomotor
         policies using both simulated and real-world robot data to
         maximize performance on a real-world objective.
+        We use planar pushing from RGB inputs as a canonical test-bed to
+        <strong>study the principles and mechanisms that underly sim-and-real
+        cotraining.</strong>
       </h2>
     </div>
   </div>
 </section>
 
-<!-- TODO: Consider putting a video of initial results here -->
 
+<!-- Abstract -->
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
@@ -177,14 +196,14 @@
           <p>
             Our experiments confirm that cotraining with simulated data can
             dramatically improve performance in real, especially when real
-            data is limited. Performance gains scale with simulated data, but
+            data is limited. Performance improvements scale with additional simulated data, but
             eventually plateau. Adding more real-world data can help increase 
             this performance ceiling. The results also suggest that for 
             nonprehensile manipulation tasks, reducing the domain gap
             in physics may be more important than visual fidelity. 
             Perhaps surprisingly, having some visual domain gap actually helps 
             the cotrained policy – binary probes reveal that high-performing 
-            policies learn to distinguish simulated domains from real. We conclude 
+            policies must learn to distinguish simulated domains from real. We conclude 
             by investigating this nuance and mechanisms that facilitate positive
             transfer between sim-and-real.
           </p>
@@ -197,73 +216,109 @@
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
   </div>
 </section>
 
-<h2 class="title is-2 has-text-centered">Real World Experiments</h2>
 
 <!-- Real World Experiments -->
 <section class="section">
+  <h2 class="title is-2 has-text-centered">Real World Experiments</h2>
+
   <div class="container is-max-desktop">
     <div class="columns is-centered">
-      <!-- Sim Only -->
+      <!-- Real Only -->
       <div class="column">
-        <div class="content">
-          <h2 class="title is-3 has-text-centered">Sim Only Policy</h2>
+        <div class="content has-text-centered">
+          <h3 class="title is-3">Real Only Policy</h3>
           <p>
-            sim2real gap (didn't tune to match sim2real) so performance bad.
+            Policies trained on a limited number of real-world demonstrations 
+            perform poorly.
           </p>
           <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
             <source src="./static/videos/placeholder.mp4"
                     type="video/mp4">
           </video>
-        </div>
-      </div>
-      <!--/ Sim Only -->
-
-      <!-- Sim-and-Real Policy -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3 has-text-centered">Real Only Policy</h2>
-          <p>
-            not enough real, performance is bad.
-          </p>
-          <video id="matting-video" controls playsinline height="100%">
+          <h4 class="subtitle is-5">
+            Real demos: 50, Sim demos: 0<br>Success Rate: 50% (10/20)
+          </h4>
+          <video id="matting-video" autoplay controls muted loop playsinline height="100%">
             <source src="./static/videos/placeholder.mp4"
                     type="video/mp4">
           </video>
+          <h4 class="subtitle is-5">
+            Real demos: 10, Sim demos: 0<br>Success Rate: 10% (2/20)
+          </h4>
         </div>
       </div>
       <!--/ Real Only -->
+
+      <!-- Sim+Real Policy -->
+      <div class="column">
+        <div class="content has-text-centered">
+          <h3 class="title is-3">Sim+Real Policy</h3>
+          <p>
+            <em>Cotraining</em> with simulated data drastically improves performance over real-only policies.
+          </p>
+          <video id="matting-video" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/placeholder.mp4"
+                    type="video/mp4">
+          </video>
+          <h4 class="subtitle is-5">
+            Real demos: 50, Sim demos: 2000<br>Success Rate: 90% (18/20)
+          </h4>
+          <video id="matting-video" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/placeholder.mp4"
+                    type="video/mp4">
+          </video>
+          <h4 class="subtitle is-5">
+            Real demos: 10, Sim demos: 2000<br>Success Rate: 70% (14/20)
+          </h4>
+        </div>
+      </div>
+      <!--/ Sim+Real Policy -->
     </div>
 
     <!-- Sim+Real Results-->
-    <div class="content has-text-centered">
+    <div class="content">
       <p>
-        Discuss sim+real results. Mention that sim only was bad
+        We cotrain and evaluate policies with varying amounts of both real and simulated data with different mixing ratios \(\alpha\).
+        We find that cotraining can <strong>improve performance by 2-7x</strong>, but is sensitive to the mixing ratio. 
+        <strong>Scaling up simulated data improves performance</strong> and reduces sensitivity to the mixing ratio.
       </p>
       <div class="has-text-centered">
         <img src="./static/images/real_world_cotraining.png" width="100%">
       </div>
     </div>
-    <!--/ Sim+Real -->
+    <!--/ Sim+Real Results -->
   </div>
 </section>
 
-<h2 class="title is-2 has-text-centered">Simulation Experiments</h2>
-
 <!-- Simulation Experiments -->
 <section class="section">
+  <h2 class="title is-2 has-text-centered">Simulation Experiments</h2>
+
+  <div class="container is-max-desktop">
+    <div class="content">
+      <p>
+        We scale up our investigation and improve its statistical significance by repeating our real-world experiments in simulation.
+        To emulate sim-and-real cotraining in sim, we create a second <em>target sim</em> environment that 
+        serves as a surrogate to the real-world.
+      </p>
+      <br>
+    </div>
+  </div>
+
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <!-- Sim Data -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3 has-text-centered"><em>Sim</em> Data</h2>
-          <p>
-            Data from the simulation environment.
-            Visuals, physics, actions.
+      <div class="column has-text-centered">
+        <div class="content has-text-centered">
+          <h3 class="title is-3 has-text-centered"><em>Sim</em> Data</h3>
+          <h3 class="subtitle is-5 has-text-centered">&nbsp;</h3>
+          <p class="has-text-centered">
+            <strong>Visuals:</strong> No shadows, white light.<br>
+            <strong>Physics:</strong> Quasistatic dynamics.<br>
+            <strong>Actions:</strong> Optimization-based planner.
           </p>
           <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
             <source src="./static/videos/placeholder.mp4"
@@ -274,13 +329,14 @@
       <!--/ Sim Data -->
 
       <!-- Target Sim Data -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3 has-text-centered"><em>Target Sim</em> Data</h2>
+      <div class="column has-text-centered">
+        <div class="content has-text-centered">
+          <h3 class="title is-3 has-text-centered"><em>Target Sim</em> Data</h3>
           <h3 class="subtitle is-5 has-text-centered">(mimics the real-world environment)</h3>
-          <p>
-            Data from the simulation environment.
-            Visuals, physics, actions.
+          <p class="has-text-centered">
+            <strong>Visuals:</strong> Two shadows, 'carbon arc' light.<br>
+            <strong>Physics:</strong> <em>Drake</em>'s physics engine.<br>
+            <strong>Actions:</strong> Human teleoperation.
           </p>
           <video id="matting-video" controls playsinline height="100%">
             <source src="./static/videos/placeholder.mp4"
@@ -295,15 +351,23 @@
     <div class="columns is-centered">
       <div class="column">
         <div class="content has-text-centered">
-          <p>
-            sim enables large scale eval
-          </p>
+          <h3 class="title is-3 has-text-centered">Cotrained Policy (Sim+<em>Target Sim</em>)</h3>
           <div class="has-text-centered">
             <video id="results-video" controls playsinline height="100%">
               <source src="./static/videos/placeholder.mp4"
                       type="video/mp4">
             </video>
           </div>
+          <h4 class="subtitle is-5">
+            <em>Target sim</em> demos: 50, Sim demos: 4000<br>Success Rate: 81% (162/200)
+          </h4>
+
+          <p style="text-align: left;">
+            We find that scaling up simulated data generation improves performance, but this trend eventually plateaus.
+            This suggests that sim data can effectively supplement real data, but cannot replace it; 
+            real data is still needed to increase the cotraining ceiling.
+          </p>
+
           <div class="has-text-centered">
             <img src="./static/images/sim_cotraining.png" width="100%">
           </div>
@@ -314,264 +378,30 @@
   </div>
 </section>
 
-<h2 class="title is-2 has-text-centered">Distribution Shifts Experiments</h2>
-
 <!-- Distribution Shifts Experiments -->
-
-<!-- <section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h3 class="title is-4 has-text-centered">Visual Gap: Color Shift</h3>
-      <div id="color-shift-carousel" class="carousel results-carousel">
-        <div class="item item-level-0">
-          <video poster="" id="color-shift-level-0" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-1">
-          <video poster="" id="color-shift-level-1" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-2">
-          <video poster="" id="color-shift-level-2" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-3">
-          <video poster="" id="color-shift-level-3" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-4">
-          <video poster="" id="color-shift-level-4" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h3 class="title is-4 has-text-centered">Visual Gap: Color Randomization</h3>
-      <div id="color-random-carousel" class="carousel results-carousel">
-        <div class="item item-level-0">
-          <video poster="" id="color-random-level-0" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-1">
-          <video poster="" id="color-random-level-1" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-2">
-          <video poster="" id="color-random-level-2" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-3">
-          <video poster="" id="color-random-level-3" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-4">
-          <video poster="" id="color-random-level-4" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h3 class="title is-4 has-text-centered">Physics Gap: Center of Mass Shift</h3>
-      <div id="com-shift-carousel" class="carousel results-carousel">
-        <div class="item item-level-0">
-          <video poster="" id="com-shift-level-0" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-1">
-          <video poster="" id="com-shift-level-1" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-2">
-          <video poster="" id="com-shift-level-2" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-3">
-          <video poster="" id="com-shift-level-3" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-4">
-          <video poster="" id="com-shift-level-4" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h3 class="title is-4 has-text-centered">Visual Gap: Camera Shift</h3>
-      <div id="camera-shift-carousel" class="carousel results-carousel">
-        <div class="item item-level-0">
-          <video poster="" id="camera-shift-level-0" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-1">
-          <video poster="" id="camera-shift-level-1" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-2">
-          <video poster="" id="camera-shift-level-2" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-3">
-          <video poster="" id="camera-shift-level-3" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-4">
-          <video poster="" id="camera-shift-level-4" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h3 class="title is-4 has-text-centered">Task Gap: Object Shift</h3>
-      <div id="object-shift-carousel" class="carousel results-carousel">
-        <div class="item item-level-0">
-          <video poster="" id="object-shift-level-0" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-1">
-          <video poster="" id="object-shift-level-1" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-2">
-          <video poster="" id="object-shift-level-2" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-3">
-          <video poster="" id="object-shift-level-3" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-4">
-          <video poster="" id="object-shift-level-4" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h3 class="title is-4 has-text-centered">Task Gap: Goal Shift</h3>
-      <div id="goal-shift-carousel" class="carousel results-carousel">
-        <div class="item item-level-0">
-          <video poster="" id="goal-shift-level-0" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-1">
-          <video poster="" id="goal-shift-level-1" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-2">
-          <video poster="" id="goal-shift-level-2" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-3">
-          <video poster="" id="goal-shift-level-3" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-level-4">
-          <video poster="" id="goal-shift-level-4" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-
-
 <section class="section">
+  <h2 class="title is-2 has-text-centered">Distribution Shifts Experiments</h2>
+
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column">
-        <div class="content has-text-centered">
+        <div class="content">
+          <p style="text-align: left;">
+            We also use our simulation to study the following questions about the distributions shifts and sim-and-real cotraining:
+            <ol style="text-align: left;">
+              <li>
+                Which sim2real gaps matter for cotraining? How does this inform simulator design for data generation?
+              </li>
+              <li>
+                What are the best practices for cotraining under different types and magnitudes of distribution shifts?
+              </li>
+            </ol>
+            We introduce 6 different types of distribution shifts (spanning visual, task, and physical gaps)
+            into the sim data at different magnitudes and cotrain policies. Four of the six shifts are visualized below.
+          </p>
           <div class="has-text-centered">
             <img src="./static/images/distribution_shifts.png" width="100%">
           </div>
-          <p>
-            discuss distribution shifts experiments
-          </p>
         </div>
       </div>
     </div>
@@ -579,55 +409,60 @@
     <div class="columns is-centered">
       <div class="column">
         <div class="content has-text-centered">
+          <p style="text-align: left;">
+            Overall, larger sim2real gaps along all axis reduce performance. Our results show that:
+            <ul style="text-align: left;">
+              <li>
+                For non-prehensile manipulation tasks, simulated data generation environments should 
+                <strong>match the physics as closely as possible.</strong>
+                This may be less important for more semantic tasks, like pick-and-place.
+              </li>
+              <li>
+                Better rendering increases performance; however, <strong>perfect
+                rendering is unnecessary</strong> (and difficult to achieve).
+              </li>
+              <li>
+                The optimal mixing ratio and the magnitude of the sim2real gaps did not show a clear trend.
+              </li>
+            </ul>
+          </p>
           <div class="has-text-centered">
             <img src="./static/images/distribution_shift_results.png" width="100%">
           </div>
-          <p>
-            discuss additional results
-          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<h2 class="title is-2 has-text-centered">Analysis</h2>
-
 <!-- Analysis Section -->
 <section class="section">
+  <h2 class="title is-2 has-text-centered">Analysis</h2>
+
   <div class="container is-max-desktop">
-    <!-- Two images stacked vertically -->
+    <h4 class="title is-4">1. High Performing Policies Distinguish Sim vs Real</h4>
+    <p style="text-align: left;">
+      Binary probing experiments show that high performing policies implicitly discern sim vs real and 
+      adjust their behavior accordingly. We show that this an important mechanism 
+      of sim-and-real cotraining since the different physics of sim and real 
+      require different behaviors and strategies.
+    </p>
+    <br>
     <div class="columns is-centered">
       <div class="column">
         <div class="has-text-centered">
           <img src="./static/images/error_plots.png" width="100%">
         </div>
-        <div class="has-text-centered">
-          <img src="./static/images/binary_probing.png" width="100%">
-        </div>
       </div>
     </div>
 
-    <!-- Text below side-by-side images -->
-    <div class="content has-text-centered">
-      <p>
-        Analysis text goes here
-      </p>
-    </div>
-
-    <!-- Full width image -->
-    <div class="columns is-centered">
-      <div class="column">
-        <div class="has-text-centered">
-          <img src="./static/images/one_hot.png" width="100%">
-        </div>
-      </div>
-    </div>
-
-    <!-- First analysis section -->
     <div class="content">
-      <p>
-        Left column text analysis
+      <h4 class="title is-4">2. Sim improves data coverage</h4>
+      <p style="text-align: left;">
+        This video visualizes when an action was learned from sim (<span style="color: blue;">blue</span>) 
+        vs real (<span style="color: red;">red</span>). When a cotrained policy is deployed in real, it
+        mostly imitates relies on real data and uses sim data to fill in states where real data may be missing.
+        When the <em>same</em> policy is deployed in sim, the opposite is true.
       </p>
       <div class="has-text-centered">
         <video controls playsinline width="100%">
@@ -638,54 +473,30 @@
 
     <!-- Second analysis section -->
     <div class="content">
-      <p>
-        Right column text analysis
+      <h4 class="title is-4">3. Power Laws</h4>
+      <p style="text-align: left;">
+        Scaling up <em>sim</em> data reduces the test loss and action MSE on the <em>real-world</em> distribution
+        predictably according to a power law. These power laws are evidence of positive transfer 
+        and provide insight into the relative value between sim and real data.
       </p>
       <div class="has-text-centered">
         <img src="./static/images/power_laws.png" width="100%">
       </div>
     </div>
-  </div>
-</section>
 
-<section class="section" id="ablations">
-  <div class="container is-max-desktop">
-    <h2 class="title">Ablations</h2>
-
-    <!-- First ablation -->
-    <div class="columns is-centered">
-      <div class="column">
-        <div class="has-text-centered">
-          <img src="./static/images/cfg_w_sweep.png" width="100%">
-        </div>
-      </div>
-    </div>
-
-    <div class="content has-text-centered">
-      <p>
-        cfg ablation
+    <div class="content">
+      <h4 class="title is-4">4. Ablations</h4>
+      <p style="text-align: left;">
+        We conducted several additional ablation studies, including:
+        <ul style="text-align: left;">
+          <li>Finetuning experiments</li>
+          <li>Domain conditioning via classifier free guidance</li>
+          <li>Adversarial objectives for cotraining</li>
+          <li>Other loss formulations</li>
+        </ul>
       </p>
-    </div>
-
-    <!-- Second ablation -->
-    <div class="columns is-centered">
-      <div class="column">
-        <div class="has-text-centered">
-          <img src="./static/images/placeholder.jpg" width="75%">
-        </div>
-      </div>
-    </div>
-
-    <div class="content has-text-centered">
-      <p>
-        GAN/MMD ablation
-      </p>
-    </div>
-
-    <!-- Additional ablations text -->
-    <div class="content has-text-centered">
-      <p>
-        We conducted several additional ablation studies, including [list key ablations]. For a comprehensive analysis of all ablation studies and their results, please refer to our 
+      <p style="text-align: left;">
+        For a comprehensive analysis of all ablation studies, please refer to our 
         <a href="https://arxiv.org/abs/2503.22634">
           <span class="icon">
             <i class="fas fa-file-alt"></i>
@@ -695,8 +506,8 @@
       </p>
     </div>
   </div>
+  
 </section>
-
 
 
 <section class="section" id="BibTeX">
