@@ -316,12 +316,12 @@
           <h3 class="title is-3 has-text-centered"><em>Sim</em> Data</h3>
           <h3 class="subtitle is-5 has-text-centered">&nbsp;</h3>
           <p class="has-text-centered">
-            <strong>Visuals:</strong> No shadows, white light.<br>
+            <strong>Visuals:</strong> No shadows, white light, incorrect camera extrinsics.<br>
             <strong>Physics:</strong> Quasistatic dynamics.<br>
             <strong>Actions:</strong> Optimization-based planner.
           </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
+          <video autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/sim_demo.mp4"
                     type="video/mp4">
           </video>
         </div>
@@ -338,8 +338,8 @@
             <strong>Physics:</strong> <em>Drake</em>'s physics engine.<br>
             <strong>Actions:</strong> Human teleoperation.
           </p>
-          <video id="matting-video" controls playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
+          <video autoplay controls muted loop playsinline height="100%" preload="auto">
+            <source src="./static/videos/target_sim_demo.mp4"
                     type="video/mp4">
           </video>
         </div>
@@ -353,13 +353,15 @@
         <div class="content has-text-centered">
           <h3 class="title is-3 has-text-centered">Cotrained Policy (Sim+<em>Target Sim</em>)</h3>
           <div class="has-text-centered">
-            <video id="results-video" controls playsinline height="100%">
-              <source src="./static/videos/placeholder.mp4"
-                      type="video/mp4">
-            </video>
+            <iframe src="static/meshcat/sim2sim_50_4000_1_9.html" width="80%" height="400" frameborder="0" allowfullscreen></iframe>
           </div>
           <h4 class="subtitle is-5">
             <em>Target sim</em> demos: 50, Sim demos: 4000<br>Success Rate: 81% (162/200)
+            <p class="is-size-7 has-text-grey mt-2">
+              To increase the speed of the visualization: Open Controls ➜ Animations ➜ default ➜ timeScale
+              <br>
+              Note: the meshcat visualization does not include the shadows, but they are correctly rendered in the camera inputs.
+            </p>
           </h4>
 
           <p style="text-align: left;">
@@ -464,9 +466,9 @@
         mostly imitates relies on real data and uses sim data to fill in states where real data may be missing.
         When the <em>same</em> policy is deployed in sim, the opposite is true.
       </p>
-      <div class="has-text-centered">
-        <video controls playsinline width="100%">
-          <source src="./static/videos/placeholder.mp4" type="video/mp4">
+      <div class="has-text-centered" style="margin-top: -1rem;">
+        <video autoplay loop muted playsinline controls width="100%">
+          <source src="./static/videos/knn_animation.mp4" type="video/mp4">
         </video>
       </div>
     </div>
@@ -491,8 +493,8 @@
         <ul style="text-align: left;">
           <li>Finetuning experiments</li>
           <li>Domain conditioning via classifier free guidance</li>
-          <li>Adversarial objectives for cotraining</li>
-          <li>Other loss formulations</li>
+          <li>Adversarial objectives for cotraining <b>[coming soon!]</b></li>
+          <li>Other loss formulations <b>[coming soon!]</b></li>
         </ul>
       </p>
       <p style="text-align: left;">
