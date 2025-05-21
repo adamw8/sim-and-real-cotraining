@@ -235,14 +235,14 @@
             perform poorly.
           </p>
           <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
+            <source src="./static/videos/10_failure_2x_overlayed.mp4"
                     type="video/mp4">
           </video>
           <h4 class="subtitle is-5">
             Real demos: 50, Sim demos: 0<br>Success Rate: 50% (10/20)
           </h4>
           <video id="matting-video" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
+            <source src="./static/videos/50_failure_2x_overlayed.mp4"
                     type="video/mp4">
           </video>
           <h4 class="subtitle is-5">
@@ -260,14 +260,14 @@
             <em>Cotraining</em> with simulated data drastically improves performance over real-only policies.
           </p>
           <video id="matting-video" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
+            <source src="./static/videos/10_2000_success_2x_overlayed.mp4"
                     type="video/mp4">
           </video>
           <h4 class="subtitle is-5">
             Real demos: 50, Sim demos: 2000<br>Success Rate: 90% (18/20)
           </h4>
           <video id="matting-video" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/placeholder.mp4"
+            <source src="./static/videos/50_2000_success_2x_overlayed.mp4"
                     type="video/mp4">
           </video>
           <h4 class="subtitle is-5">
@@ -461,10 +461,10 @@
     <div class="content">
       <h4 class="title is-4">2. Sim improves data coverage</h4>
       <p style="text-align: left;">
-        This video visualizes when an action was learned from sim (<span style="color: blue;">blue</span>) 
-        vs real (<span style="color: red;">red</span>). When a cotrained policy is deployed in real, it
-        mostly imitates relies on real data and uses sim data to fill in states where real data may be missing.
-        When the <em>same</em> policy is deployed in sim, the opposite is true.
+        We find that cotraining improves performance by improving data coverage and preventing compounding errors
+        from missing states in the real-world dataset. Interestingly, cotrained policies primarily rely on real data 
+        for action generation and only use cotraining data in local neighborhoods where real data is missing.
+        This results in smoother and more robust policies.
       </p>
       <div class="has-text-centered" style="margin-top: -1rem;">
         <video autoplay loop muted playsinline controls width="100%">
